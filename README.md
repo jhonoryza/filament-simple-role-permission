@@ -81,7 +81,13 @@ class User extends Authenticatable
 
 Then seed it with some default role and permission
 ```bash
-php artisan db:seed --class=PermissionSeeder && php artisan db:seed --class=RoleSeeder
+php artisan db:seed --class=PermissionSeeder && php artisan db:seed --class=RoleSeeder && php artisan db:seed --class=UserSeeder
+```
+
+Then generate all policy file in `app\Policies` directory base on `predefined` permissions from Permission model
+
+```bash
+php artisan policy:generate
 ```
 
 ## Configuration
@@ -131,14 +137,6 @@ public static function match($permission): string
         default => '',
     };
 }
-```
-
-## Generating Policy files
-
-This will generate all policy file in `app\Policies` directory base on `predefined` permissions from Permission model
-
-```bash
-php artisan policy:generate
 ```
 
 ## Publishing policy stubs

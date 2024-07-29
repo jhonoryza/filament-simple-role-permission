@@ -20,5 +20,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
             'role_id' => $role->id,
         ]);
+        $this->command->info('Seeded user test@example.com');
     }
 }

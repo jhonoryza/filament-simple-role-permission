@@ -20,5 +20,6 @@ class RoleSeeder extends Seeder
             $permissionss = Permission::all();
             $role->permissions()->sync($permissionss->pluck('id'));
         }
+        $this->command->info('Seeded predefined roles');
     }
 }
