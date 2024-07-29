@@ -49,6 +49,36 @@ Then you can migrate your database
 php artisan migrate
 ``` 
 
+Edit `app\Models\User.php` add `HasRole` trait and `predefined roles`
+
+```php
+use App\Models\Concern\HasRole;
+class User extends Authenticatable
+{
+    use HasRole;
+
+    const SUPER = 'super-admin';
+
+    const ADMIN = 'admin';
+
+    public static function getPredefined(): array
+    {
+        return [
+            self::SUPER,
+            self::ADMIN,
+        ];
+    }
+
+    protected $fillable = [
+        // ... etc
+
+        'role_id',
+    ]
+}
+```
+
+`const SUPER` is used in `UserSeeder` class
+
 Then seed it with some default role and permission
 ```bash
 php artisan db:seed --class=PermissionSeeder && php artisan db:seed --class=RoleSeeder
