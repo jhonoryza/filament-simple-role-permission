@@ -30,7 +30,7 @@ class PolicyGeneratorCommand extends Command
         $filesystem->ensureDirectoryExists(app_path('Policies'));
 
         $customPath = app()->basePath('stubs/simple-role-permission/genericPolicy.stub');
-        $stub = $customPath ? $customPath : '/stubs/policy/genericPolicy.stub';
+        $stub = file_exists($customPath) ? $customPath : '/stubs/policy/genericPolicy.stub';
 
         $contents = $filesystem->get(__DIR__.$stub);
         $modelName = Str::studly(Str::singular($table));
