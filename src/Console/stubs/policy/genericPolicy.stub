@@ -1,0 +1,57 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ namespacedUserModel }};
+
+class {{ class }}
+{
+    /**
+     * Determine whether the user can view any models.
+     */
+    public function viewAny({{ user }} $user): bool
+    {
+        return $user->hasPermissionTo('{{ viewAnyPermission }}');
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function view({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $user->hasPermissionTo('{{ viewPermission }}');
+    }
+
+    /**
+     * Determine whether the user can create models.
+     */
+    public function create({{ user }} $user): bool
+    {
+        return $user->hasPermissionTo('{{ createPermission }}');
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $user->hasPermissionTo('{{ updatePermission }}');
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $user->hasPermissionTo('{{ deletePermission }}');
+    }
+
+    /**
+     * Determine whether the user can bulk delete the model.
+     */
+    public function bulkDelete({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
+    {
+        return $user->hasPermissionTo('{{ bulkDeletePermission }}');
+    }
+}

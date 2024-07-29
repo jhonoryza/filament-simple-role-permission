@@ -1,0 +1,32 @@
+{
+    "name": "jhonoryza/filament-simple-role-permission",
+    "description": "filament scaffolding for role and permission",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jhonoryza\\Filament\\RolePermission\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jhonoryza\\Filament\\RolePermission\\RolePermissionServiceProvider"
+            ]
+        }
+    },    
+    "authors": [
+        {
+            "name": "fajar sidik priatna",
+            "email": "jardik.oryza@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0|^11.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0"
+    }
+}
