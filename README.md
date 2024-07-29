@@ -29,6 +29,11 @@ This package is a filament scaffolding for simple role and permission, provides 
     <img src="/public/erd.png" width="300" />
 </p>
 
+## Requirements
+- PHP >= 8.2
+- Laravel >= 10.0
+- Filament >= 3.0
+
 ## Installation
 
 You can install the package via composer
