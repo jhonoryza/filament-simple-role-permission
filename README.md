@@ -31,7 +31,7 @@ This package is a filament scaffolding for simple role and permission, provides 
 
 ## Installation
 
-You can install the package via composer:
+You can install the package via composer
 
 ```bash
 composer require --dev jhonoryza/filament-simple-role-permission
@@ -43,13 +43,20 @@ Then you need to run this command to publish the scaffolding
 php artisan filament-simple-role-permission:install
 ```
 
-Then you can migrate your database using `php artisan migrate` 
+Then you can migrate your database
 
-Then seed it with some default role and permission using `php artisan db:seed --class=PermissionSeeder && php artisan db:seed --class=RoleSeeder`.
+```bash 
+php artisan migrate
+``` 
+
+Then seed it with some default role and permission
+```bash
+php artisan db:seed --class=PermissionSeeder && php artisan db:seed --class=RoleSeeder
+```
 
 ## Configuration
 
-You can configure predefined permissions by adjust `function getPredefined()` and `function match()` in `Permission` Model class like this
+You can configure predefined permissions by adjust `function getPredefined()` and `function match()` in `Permission` model class like this
 
 ```php
 public static function getPredefined(): array
@@ -98,17 +105,15 @@ public static function match($permission): string
 
 ## Generating Policy files
 
-You can run this command :
+This will generate all policy file in `app\Policies` directory base on `predefined` permissions from Permission model
 
 ```bash
 php artisan policy:generate
 ```
 
-this will generate all policy file in `app\Policies` directory base on `predefined` permissions from Permission Model 
-
 ## Publishing policy stubs
 
-You can use this command to customize Policy class template:
+To customize Policy class template:
 
 ```bash
 php artisan vendor:publish --tag="simple-role-permission-stubs"
