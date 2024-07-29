@@ -1,13 +1,13 @@
 <h1 align="center">Simple Role Permission Filament</h1>
 <p align="center">
-    <a href="https://packagist.org/packages/jhonoryza/filament-simple-role">
-        <img src="https://poser.pugx.org/jhonoryza/filament-simple-role/d/total.svg" alt="Total Downloads">
+    <a href="https://packagist.org/packages/jhonoryza/filament-simple-role-permission">
+        <img src="https://poser.pugx.org/jhonoryza/filament-simple-role-permission/d/total.svg" alt="Total Downloads">
     </a>
-    <a href="https://packagist.org/packages/jhonoryza/filament-simple-role">
-        <img src="https://poser.pugx.org/jhonoryza/filament-simple-role/v/stable.svg" alt="Latest Stable Version">
+    <a href="https://packagist.org/packages/jhonoryza/filament-simple-role-permission">
+        <img src="https://poser.pugx.org/jhonoryza/filament-simple-role-permission/v/stable.svg" alt="Latest Stable Version">
     </a>
-    <a href="https://packagist.org/packages/jhonoryza/filament-simple-role">
-        <img src="https://poser.pugx.org/jhonoryza/filament-simple-role/license.svg" alt="License">
+    <a href="https://packagist.org/packages/jhonoryza/filament-simple-role-permission">
+        <img src="https://poser.pugx.org/jhonoryza/filament-simple-role-permission/license.svg" alt="License">
     </a>
 </p>
 
