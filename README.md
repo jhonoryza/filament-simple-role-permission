@@ -25,11 +25,13 @@ This package is a filament scaffolding for simple role and permission, provides 
 </p>
 
 ## ERD
+
 <p float="left">
     <img src="/public/erd.png" width="300" />
 </p>
 
 ## Requirements
+
 - PHP >= 8.2
 - Laravel >= 10.0
 - Filament >= 3.0
@@ -50,9 +52,9 @@ php artisan filament-simple-role-permission:install
 
 Then you can migrate your database
 
-```bash 
+```bash
 php artisan migrate
-``` 
+```
 
 Edit `app\Models\User.php` add `HasRole` trait and `predefined roles`
 
@@ -85,8 +87,11 @@ class User extends Authenticatable
 `const SUPER` is used in `UserSeeder` class
 
 Then seed it with some default role and permission
+
 ```bash
-php artisan db:seed --class=PermissionSeeder && php artisan db:seed --class=RoleSeeder && php artisan db:seed --class=UserSeeder
+php artisan db:seed --class=PermissionSeeder
+php artisan db:seed --class=RoleSeeder
+php artisan db:seed --class=UserSeeder
 ```
 
 Then generate all policy file in `app\Policies` directory base on `predefined` permissions from Permission model
