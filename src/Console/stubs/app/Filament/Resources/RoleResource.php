@@ -38,25 +38,47 @@ class RoleResource extends Resource
             ->groupBy('perm_name');
         $formPermissions = [];
         foreach ($predefinedPermissions as $label => $permissions) {
-            $formPermissions[] = Forms\Components\CheckboxList::make('permissions.'.$label)
-                ->label(Str::title(Str::singular($label)))
-                ->options($permissions->pluck('perm_act', 'id'))
+            $formPermissions[] = Forms\Components\CheckboxList::make(
+                'permissions.'.$label
+            )
+                ->label(Str::headline(Str::singular($label)))
+                ->relationship(
+                    name: 'permissions',
+                    modifyQueryUsing: function ($query) use ($permissions) {
+                        $query->whereIn('id', $permissions->pluck('id'));
+                    }
+                )
+                ->getOptionLabelFromRecordUsing(
+                    fn ($record) => str($record->name)->after('.')
+                )
                 ->bulkToggleable()
                 ->reactive()
-                ->afterStateHydrated(function (Get $get, Set $set) use ($predefinedPermissions) {
+                ->afterStateHydrated(function (Get $get, Set $set) use (
+                    $predefinedPermissions
+                ) {
                     $checkAll = true;
                     foreach ($get('permissions') as $label => $permissions) {
-                        if (count($permissions) === 0 || count($permissions) !== count($predefinedPermissions[$label])) {
+                        if (
+                            count($permissions) === 0 ||
+                            count($permissions) !==
+                                count($predefinedPermissions[$label])
+                        ) {
                             $checkAll = false;
                             break;
                         }
                     }
                     $set('check-all', $checkAll);
                 })
-                ->afterStateUpdated(function (Get $get, Set $set) use ($predefinedPermissions) {
+                ->afterStateUpdated(function (Get $get, Set $set) use (
+                    $predefinedPermissions
+                ) {
                     $checkAll = true;
                     foreach ($get('permissions') as $label => $permissions) {
-                        if (count($permissions) === 0 || count($permissions) !== count($predefinedPermissions[$label])) {
+                        if (
+                            count($permissions) === 0 ||
+                            count($permissions) !==
+                                count($predefinedPermissions[$label])
+                        ) {
                             $checkAll = false;
                             break;
                         }
@@ -65,42 +87,48 @@ class RoleResource extends Resource
                 });
         }
 
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->columnSpanFull()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Section::make('Permissions')
-                    ->schema([
-                        Checkbox::make('check-all')
-                            ->label('Check All Permissions')
-                            ->reactive()
-                            ->afterStateUpdated(function (Set $set, $state) use ($predefinedPermissions) {
-                                if ($state === true) {
-                                    foreach ($predefinedPermissions as $label => $permission) {
-                                        $set('permissions.'.$label, $permission->pluck('id')->toArray());
-                                    }
-                                } else {
-                                    foreach ($predefinedPermissions as $label => $permission) {
-                                        $set('permissions.'.$label, []);
-                                    }
-                                }
-                            })
-                            ->default(false),
-                        Forms\Components\Section::make()
-                            ->columns(5)
-                            ->schema($formPermissions),
-                    ]),
-            ]);
+        return $form->schema([
+            Forms\Components\TextInput::make('name')
+                ->columnSpanFull()
+                ->required()
+                ->maxLength(255),
+            Forms\Components\Section::make('Permissions')->schema([
+                Checkbox::make('check-all')
+                    ->label('Check All Permissions')
+                    ->reactive()
+                    ->afterStateUpdated(function (Set $set, $state) use (
+                        $predefinedPermissions
+                    ) {
+                        if ($state === true) {
+                            foreach (
+                                $predefinedPermissions as $label => $permission
+                            ) {
+                                $set(
+                                    'permissions.'.$label,
+                                    $permission->pluck('id')->toArray()
+                                );
+                            }
+                        } else {
+                            foreach (
+                                $predefinedPermissions as $label => $permission
+                            ) {
+                                $set('permissions.'.$label, []);
+                            }
+                        }
+                    })
+                    ->default(false),
+                Forms\Components\Section::make()
+                    ->columns(5)
+                    ->schema($formPermissions),
+            ]),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -113,19 +141,18 @@ class RoleResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
+            ->actions([Tables\Actions\EditAction::make()])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
-                        ->action(function (Collection $records) {
-                            /** @var Role $record */
-                            foreach ($records as $record) {
-                                $record->permissions()->detach();
-                                $record->delete();
-                            }
-                        }),
+                    Tables\Actions\DeleteBulkAction::make()->action(function (
+                        Collection $records
+                    ) {
+                        /** @var Role $record */
+                        foreach ($records as $record) {
+                            $record->permissions()->detach();
+                            $record->delete();
+                        }
+                    }),
                 ]),
             ]);
     }
