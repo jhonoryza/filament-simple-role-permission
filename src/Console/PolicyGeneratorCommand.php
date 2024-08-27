@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class PolicyGeneratorCommand extends Command
 {
-    protected $signature = "policy:generate --userModel?";
+    protected $signature = "policy:generate {userModel=User : user model default: User}";
 
     protected $description = "Generate all policy for predefined permissions";
 
