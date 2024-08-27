@@ -51,6 +51,7 @@ class RoleResource extends Resource
                 ->getOptionLabelFromRecordUsing(
                     fn ($record) => str($record->name)->after('.')
                 )
+                ->dehydrated()
                 ->bulkToggleable()
                 ->reactive()
                 ->afterStateHydrated(function (Get $get, Set $set) use (
